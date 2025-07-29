@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yoolbaan Academy - Login</title>
+    <title>Admin Login - Yoolbaan Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
@@ -16,9 +16,7 @@
             --dark: #343a40;
             --success: #28a745;
             --error: #dc3545;
-            --warning: #ffc107;
             --gray: #6c757d;
-            --light-gray: #e9ecef;
         }
         
         * {
@@ -45,7 +43,6 @@
             max-width: 420px;
             padding: 2.5rem;
             text-align: center;
-            transition: all 0.3s ease;
         }
         
         .logo {
@@ -62,6 +59,17 @@
             font-weight: 600;
         }
         
+        .admin-label {
+            display: inline-block;
+            background-color: var(--error);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
         .form-group {
             margin-bottom: 1.5rem;
             text-align: left;
@@ -72,10 +80,6 @@
             margin-bottom: 0.5rem;
             font-weight: 500;
             color: var(--secondary);
-        }
-        
-        .input-field {
-            position: relative;
         }
         
         input {
@@ -91,15 +95,6 @@
             border-color: var(--accent);
             outline: none;
             box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
-        }
-        
-        .toggle-password {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            cursor: pointer;
         }
         
         button {
@@ -131,22 +126,6 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-        
-        .forgot-password {
-            margin-top: 1rem;
-            text-align: center;
-        }
-        
-        .forgot-password a {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-        
-        .forgot-password a:hover {
-            text-decoration: underline;
         }
         
         .message {
@@ -183,39 +162,29 @@
             h1 {
                 font-size: 1.5rem;
             }
-            
-            input, button {
-                padding: 0.8rem;
-            }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <img src="images/logo.png" alt="Yoolbaan Academy Logo" class="logo">
-        <h1>Student Portal Login</h1>
+        <img src="https://via.placeholder.com/80?text=YA" alt="Yoolbaan Academy Logo" class="logo">
+        <h1>Admin Portal</h1>
+        <div class="admin-label">RESTRICTED ACCESS</div>
         
         <div class="form-group">
-            <label for="rollNo">Roll Number</label>
-            <input type="text" id="rollNo" placeholder="Enter your roll number">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter admin username">
         </div>
         
         <div class="form-group">
             <label for="password">Password</label>
-            <div class="input-field">
-                <input type="password" id="password" placeholder="Enter your password">
-                <i class="material-icons toggle-password" id="togglePassword">visibility_off</i>
-            </div>
+            <input type="password" id="password" placeholder="Enter admin password">
         </div>
         
         <button id="loginBtn">
             <i class="material-icons spinner">autorenew</i>
             <span>Login</span>
         </button>
-        
-        <div class="forgot-password">
-            <a href="rst-request.html">Forgot password?</a>
-        </div>
         
         <div id="message" class="message"></div>
         
@@ -227,32 +196,21 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
         
-        // Toggle password visibility
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-        
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
-        });
-        
-        // Login functionality
-        document.getElementById('loginBtn').addEventListener('click', login);
+        document.getElementById('loginBtn').addEventListener('click', adminLogin);
         document.getElementById('password').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') login();
+            if (e.key === 'Enter') adminLogin();
         });
         
-        async function login() {
-            const rollNo = document.getElementById('rollNo').value.trim();
+        async function adminLogin() {
+            const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const messageEl = document.getElementById('message');
             const loginBtn = document.getElementById('loginBtn');
             const spinner = loginBtn.querySelector('.spinner');
             const btnText = loginBtn.querySelector('span');
             
-            if (!rollNo || !password) {
-                showMessage('Please enter both roll number and password', 'error');
+            if (!username || !password) {
+                showMessage('Please enter both username and password', 'error');
                 return;
             }
             
@@ -267,17 +225,17 @@
             
             try {
                 const scriptUrl = 'https://script.google.com/macros/s/AKfycbxlYyFtAZ9eyoFrcKgnHhh1szDnfsfbdtexe-3TWHUYowR7wG8IxqUC0yUhG9CwbYPc/exec';
-                const response = await fetch(`${scriptUrl}?action=login&rollNo=${encodeURIComponent(rollNo)}&password=${encodeURIComponent(password)}&device=${encodeURIComponent(device)}&ip=${encodeURIComponent(ip)}`);
+                const response = await fetch(`${scriptUrl}?action=adminLogin&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&device=${encodeURIComponent(device)}&ip=${encodeURIComponent(ip)}`);
                 const data = await response.json();
                 
                 if (data.status === 'success') {
-                    sessionStorage.setItem('student', JSON.stringify(data.data.student));
-                    window.location.href = 'transcript.html';
+                    sessionStorage.setItem('admin', JSON.stringify(data.data.admin));
+                    window.location.href = 'admindashboard.html';
                 } else {
                     showMessage(data.data, 'error');
                 }
             } catch (error) {
-                console.error('Login error:', error);
+                console.error('Admin login error:', error);
                 showMessage('An error occurred during login. Please try again.', 'error');
             } finally {
                 btnText.textContent = 'Login';

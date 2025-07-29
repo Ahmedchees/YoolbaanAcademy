@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Yoolbaan Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --primary-dark: #3a5a8a;
+            --secondary: #166088;
+            --accent: #4fc3f7;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --error: #dc3545;
+            --warning: #ffc107;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+            object-fit: contain;
+        }
+        
+        .academy-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .admin-label {
+            display: inline-block;
+            background-color: var(--error);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 10px;
+            font-weight: 500;
+        }
+        
+        .user-menu {
+            position: relative;
+        }
+        
+        .user-toggle {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .user-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+            background-color: var(--light-gray);
+        }
+        
+        .user-name {
+            font-weight: 500;
+            margin-right: 5px;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .user-menu.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--light);
+        }
+        
+        .dropdown-item i {
+            margin-right: 10px;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .main-content {
+            padding: 30px 0;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .tab-container {
+            display: flex;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            color: var(--gray);
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn i {
+            margin-right: 5px;
+        }
+        
+        .btn-secondary {
+            background-color: var(--gray);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .dataTables_wrapper {
+            margin-top: 20px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            padding: 25px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            display: block;
+        }
+        
+        .alert-error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--error);
+            display: block;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .user-menu {
+                margin-top: 15px;
+                align-self: flex-end;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .tab-container {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 5px;
+            }
+            
+            .tab {
+                padding: 10px 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .academy-name {
+                font-size: 1.2rem;
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="https://via.placeholder.com/40?text=YA" alt="Yoolbaan Academy Logo" class="logo">
+                    <span class="academy-name">Yoolbaan Academy</span>
+                    <span class="admin-label">ADMIN</span>
+                </div>
+                
+                <div class="user-menu" id="userMenu">
+                    <div class="user-toggle" id="userToggle">
+                        <img src="https://www.gstatic.com/images/icons/material/system/1x/account_circle_black_24dp.png" alt="Admin" class="user-avatar" id="userAvatar">
+                        <span class="user-name" id="userName"></span>
+                        <i class="material-icons">arrow_drop_down</i>
+                    </div>
+                    
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item" id="logoutBtn">
+                            <i class="material-icons">exit_to_app</i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="page-title">Admin Dashboard</h1>
+                <div id="lastLogin"></div>
+            </div>
+            
+            <div class="tab-container">
+                <div class="tab active" data-tab="students">Student Records</div>
+                <div class="tab" data-tab="results">Exam Results</div>
+            </div>
+            
+            <div id="alertMessage" class="alert"></div>
+            
+            <div class="tab-content active" id="students-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Student Credentials</h2>
+                        <button class="btn" id="addStudentBtn">
+                            <i class="material-icons">add</i>
+                            <span>Add Student</span>
+                        </button>
+                    </div>
+                    <table id="studentsTable" class="display" style="width:100%"></table>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="results-tab">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Exam Results</h2>
+                        <button class="btn" id="addResultBtn">
+                            <i class="material-icons">add</i>
+                            <span>Add Result</span>
+                        </button>
+                    </div>
+                    <table id="resultsTable" class="display" style="width:100%"></table>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Add Student Modal -->
+    <div class="modal" id="addStudentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Student</h3>
+                <button class="close-modal" id="closeStudentModal">&times;</button>
+            </div>
+            <form id="studentForm">
+                <div class="form-group">
+                    <label class="form-label" for="rollNo">Roll Number</label>
+                    <input type="text" class="form-control" id="rollNo" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="studentName">Full Name</label>
+                    <input type="text" class="form-control" id="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="studentEmail">Email</label>
+                    <input type="email" class="form-control" id="studentEmail" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="studentPassword">Password</label>
+                    <input type="password" class="form-control" id="studentPassword" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelStudent">Cancel</button>
+                    <button type="submit" class="btn" id="saveStudent">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Add Result Modal -->
+    <div class="modal" id="addResultModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Exam Result</h3>
+                <button class="close-modal" id="closeResultModal">&times;</button>
+            </div>
+            <form id="resultForm">
+                <div class="form-group">
+                    <label class="form-label" for="resultRollNo">Roll Number</label>
+                    <input type="text" class="form-control" id="resultRollNo" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="resultName">Student Name</label>
+                    <input type="text" class="form-control" id="resultName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="courseName">Course Name</label>
+                    <input type="text" class="form-control" id="courseName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="marks">Marks</label>
+                    <input type="number" class="form-control" id="marks" min="0" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="grade">Grade</label>
+                    <input type="text" class="form-control" id="grade" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="status">Status</label>
+                    <select class="form-control" id="status" required>
+                        <option value="Passed">Passed</option>
+                        <option value="Failed">Failed</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelResult">Cancel</button>
+                    <button type="submit" class="btn" id="saveResult">Save Result</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            &copy; <span id="year"></span> Yoolbaan Academy. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#year').text(new Date().getFullYear());
+            
+            // Check admin session
+            const adminData = sessionStorage.getItem('admin');
+            if (!adminData) {
+                window.location.href = 'adminlog.html';
+                return;
+            }
+            
+            $('#userName').text(adminData ? JSON.parse(adminData) : 'Admin');
+            
+            // Setup tabs
+            $('.tab').on('click', function() {
+                $('.tab').removeClass('active');
+                $(this).addClass('active');
+                
+                $('.tab-content').removeClass('active');
+                $(`#${$(this).data('tab')}-tab`).addClass('active');
+            });
+            
+            // Setup user menu toggle
+            $('#userToggle').on('click', function(e) {
+                e.stopPropagation();
+                $('#userMenu').toggleClass('active');
+            });
+            
+            // Close dropdown when clicking outside
+            $(document).on('click', function() {
+                $('#userMenu').removeClass('active');
+            });
+            
+            // Logout button
+            $('#logoutBtn').on('click', function(e) {
+                e.preventDefault();
+                sessionStorage.removeItem('admin');
+                window.location.href = 'adminlog.html';
+            });
+            
+            // Load last login info
+            loadLastLogin();
+            
+            // Initialize tables
+            initStudentsTable();
+            initResultsTable();
+            
+            // Setup modals
+            setupStudentModal();
+            setupResultModal();
+        });
+        
+        function loadLastLogin() {
+            // In a real implementation, fetch last login from server
+            $('#lastLogin').html(`<span style="color: var(--gray); font-size: 0.9rem;">Last login: ${new Date().toLocaleString()}</span>`);
+        }
+        
+        function initStudentsTable() {
+            $('#studentsTable').DataTable({
+                ajax: {
+                    url: 'https://script.google.com/macros/s/AKfycbxlYyFtAZ9eyoFrcKgnHhh1szDnfsfbdtexe-3TWHUYowR7wG8IxqUC0yUhG9CwbYPc/exec?action=getAdminData&dataType=students',
+                    dataSrc: function(json) {
+                        if (json.status === 'success') {
+                            return json.data.data;
+                        } else {
+                            showAlert('Failed to load student data', 'error');
+                            return [];
+                        }
+                    }
+                },
+                columns: [
+                    { title: "Roll No", data: 0 },
+                    { title: "Password", data: 1, visible: false },
+                    { title: "Name", data: 2 },
+                    { title: "Email", data: 3 },
+                    { title: "Join Date", data: 4 },
+                    { 
+                        title: "Actions", 
+                        data: null,
+                        render: function(data, type, row) {
+                            return `
+                                <button class="btn-edit" data-row='${JSON.stringify(row)}' data-index="${row[0]}">
+                                    <i class="material-icons" style="font-size:18px; color: var(--primary);">edit</i>
+                                </button>
+                            `;
+                        },
+                        orderable: false
+                    }
+                ],
+                responsive: true,
+                dom: '<"top"f>rt<"bottom"lip><"clear">',
+                pageLength: 10
+            });
+        }
+        
+        function initResultsTable() {
+            $('#resultsTable').DataTable({
+                ajax: {
+                    url: 'https://script.google.com/macros/s/AKfycbxlYyFtAZ9eyoFrcKgnHhh1szDnfsfbdtexe-3TWHUYowR7wG8IxqUC0yUhG9CwbYPc/exec?action=getAdminData&dataType=results',
+                    dataSrc: function(json) {
+                        if (json.status === 'success') {
+                            return json.data.data;
+                        } else {
+                            showAlert('Failed to load exam results', 'error');
+                            return [];
+                        }
+                    }
+                },
+                columns: [
+                    { title: "Roll No", data: 0 },
+                    { title: "Student Name", data: 1 },
+                    { title: "Course", data: 2 },
+                    { title: "Marks", data: 3 },
+                    { title: "Grade", data: 4 },
+                    { title: "Status", data: 5 },
+                    { title: "Date", data: 6 },
+                    { 
+                        title: "Actions", 
+                        data: null,
+                        render: function(data, type, row) {
+                            return `
+                                <button class="btn-edit" data-row='${JSON.stringify(row)}' data-index="${row[0]}">
+                                    <i class="material-icons" style="font-size:18px; color: var(--primary);">edit</i>
+                                </button>
+                            `;
+                        },
+                        orderable: false
+                    }
+                ],
+                responsive: true,
+                dom: '<"top"f>rt<"bottom"lip><"clear">',
+                pageLength: 10
+            });
+        }
+        
+        function setupStudentModal() {
+            const modal = $('#addStudentModal');
+            const openBtn = $('#addStudentBtn');
+            const closeBtn = $('#closeStudentModal');
+            const cancelBtn = $('#cancelStudent');
+            const form = $('#studentForm');
+            
+            openBtn.on('click', function() {
+                modal.css('display', 'flex');
+                form.trigger('reset');
+                form.data('mode', 'add');
+            });
+            
+            closeBtn.add(cancelBtn).on('click', function() {
+                modal.hide();
+            });
+            
+            form.on('submit', function(e) {
+                e.preventDefault();
+                
+                const studentData = {
+                    rollNo: $('#rollNo').val(),
+                    name: $('#studentName').val(),
+                    email: $('#studentEmail').val(),
+                    password: $('#studentPassword').val()
+                };
+                
+                $.ajax({
+                    url: 'https://script.google.com/macros/s/AKfycbxlYyFtAZ9eyoFrcKgnHhh1szDnfsfbdtexe-3TWHUYowR7wG8IxqUC0yUhG9CwbYPc/exec?action=addNewStudent',
+                    method: 'POST',
+                    data: {
+                        studentData: JSON.stringify(studentData)
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            showAlert(response.data, 'success');
+                            $('#studentsTable').DataTable().ajax.reload();
+                            modal.hide();
+                        } else {
+                            showAlert(response.data, 'error');
+                        }
+                    },
+                    error: function() {
+                        showAlert('Failed to add student', 'error');
+                    }
+                });
+            });
+            
+            // Edit student functionality would be added here
+        }
+        
+        function setupResultModal() {
+            const modal = $('#addResultModal');
+            const openBtn = $('#addResultBtn');
+            const closeBtn = $('#closeResultModal');
+            const cancelBtn = $('#cancelResult');
+            const form = $('#resultForm');
+            
+            openBtn.on('click', function() {
+                modal.css('display', 'flex');
+                form.trigger('reset');
+                form.data('mode', 'add');
+            });
+            
+            closeBtn.add(cancelBtn).on('click', function() {
+                modal.hide();
+            });
+            
+            form.on('submit', function(e) {
+                e.preventDefault();
+                
+                const resultData = {
+                    rollNo: $('#resultRollNo').val(),
+                    stdName: $('#resultName').val(),
+                    courseName: $('#courseName').val(),
+                    marks: $('#marks').val(),
+                    grade: $('#grade').val(),
+                    status: $('#status').val()
+                };
+                
+                $.ajax({
+                    url: 'https://script.google.com/macros/s/AKfycbxlYyFtAZ9eyoFrcKgnHhh1szDnfsfbdtexe-3TWHUYowR7wG8IxqUC0yUhG9CwbYPc/exec?action=addNewExamResult',
+                    method: 'POST',
+                    data: {
+                        resultData: JSON.stringify(resultData)
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            showAlert(response.data, 'success');
+                            $('#resultsTable').DataTable().ajax.reload();
+                            modal.hide();
+                        } else {
+                            showAlert(response.data, 'error');
+                        }
+                    },
+                    error: function() {
+                        showAlert('Failed to add exam result', 'error');
+                    }
+                });
+            });
+            
+            // Edit result functionality would be added here
+        }
+        
+        function showAlert(message, type) {
+            const alert = $('#alertMessage');
+            alert.removeClass('alert-success alert-error');
+            alert.addClass(`alert-${type}`);
+            alert.text(message).show();
+            
+            setTimeout(function() {
+                alert.fadeOut();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
