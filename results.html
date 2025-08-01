@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yoolbaan Academy - Exam Results</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+  <header class="results-header">
+    <div class="header-left">
+      <img src="images/logo.png" alt="Yoolbaan Academy Logo" class="logo">
+      <h1>Yoolbaan Academy</h1>
+    </div>
+    
+    <div class="header-right">
+      <div class="hamburger-menu" id="hamburgerMenu">
+        <i class="fas fa-bars"></i>
+      </div>
+      
+      <div class="dropdown-menu" id="dropdownMenu">
+        <div class="dropdown-header">
+          <img src="" alt="Profile" id="profileImage" class="profile-img">
+          <span id="studentName"></span>
+          <span id="studentStatus" class="status-badge"></span>
+        </div>
+        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </header>
+  
+  <main class="results-container">
+    <section class="profile-section">
+      <div class="profile-card">
+        <img src="" alt="Student Profile" id="studentProfileImage" class="profile-image">
+        <div class="profile-details">
+          <h2 id="profileName"></h2>
+          <p id="profileRollNo"></p>
+          <p id="profileCourse"></p>
+          <span id="profileStatus" class="status-badge"></span>
+        </div>
+      </div>
+    </section>
+    
+    <section class="results-section">
+      <h2>Exam Results</h2>
+      
+      <div id="noResultsMessage" class="no-results">
+        <i class="fas fa-info-circle"></i>
+        <p>There are no exam results available. Please contact support if you believe this is an error.</p>
+      </div>
+      
+      <div class="table-container">
+        <table id="resultsTable" class="results-table">
+          <thead>
+            <tr>
+              <th>Course ID</th>
+              <th>Course Name</th>
+              <th>Marks</th>
+              <th>Grade</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody">
+            <!-- Results will be populated here -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div id="resultsSummary" class="results-summary">
+        <div class="summary-item">
+          <span>Total Marks:</span>
+          <span id="totalMarks"></span>
+        </div>
+        <div class="summary-item">
+          <span>Average:</span>
+          <span id="averageMarks"></span>
+        </div>
+        <div class="summary-item">
+          <span>Overall Grade:</span>
+          <span id="overallGrade" class="grade-badge"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer class="results-footer">
+    <p>&copy; <span id="year"></span> Yoolbaan Academy. All rights reserved.</p>
+  </footer>
+  
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/student.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Check if user is logged in
+    const token = localStorage.getItem('studentToken');
+    if (!token) {
+      window.location.href = 'index.html';
+    } else {
+      loadStudentProfile();
+      loadExamResults();
+    }
+    
+    // Hamburger menu functionality
+    document.getElementById('hamburgerMenu').addEventListener('click', function() {
+      const dropdown = document.getElementById('dropdownMenu');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+    
+    // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      logout();
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const dropdown = document.getElementById('dropdownMenu');
+      const hamburger = document.getElementById('hamburgerMenu');
+      
+      if (e.target !== hamburger && !hamburger.contains(e.target) && 
+          e.target !== dropdown && !dropdown.contains(e.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
