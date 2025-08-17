@@ -1,46 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yoolbaan Academy - Student Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-  <div class="login-container">
-    <div class="login-header">
-      <img src="assets/logo.png" alt="Yoolbaan Academy Logo" class="logo">
-      <h1>Yoolbaan Academy</h1>
-    </div>
-    
-    <form id="loginForm" class="login-form">
-      <div class="form-group">
-        <label for="rollNo">Roll Number</label>
-        <input type="text" id="rollNo" name="rollNo" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      
-      <button type="submit" class="btn-login">Login</button>
-      
-      <div class="form-footer">
-        <a href="#" id="forgotPassword">Forgot Password?</a>
-      </div>
-    </form>
-    
-    <div id="loginMessage" class="message"></div>
-  </div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yoolbaan Academy</title>
+  <meta name="description" content="Yoolbaan Academy — Learn skills that matter." />
 
-  <footer class="login-footer">
-    <p>&copy; <span id="currentYear"></span> Yoolbaan Academy. All rights reserved.</p>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/index.css" />
+</head>
+<body class="theme-blue">
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="assets/images/logo.png" alt="Yoolbaan Academy logo" class="brand-logo" />
+        <span class="brand-name">Yoolbaan Academy</span>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a class="btn btn-primary" href="login.html">
+          <i class="fas fa-user-graduate"></i>
+          <span>Student Login</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section class="hero" role="region" aria-label="Showcase banner">
+    <div class="container hero-inner">
+      <div class="hero-media">
+        <img src="assets/images/banner.jpg" alt="Students learning at Yoolbaan Academy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <main id="content" class="content" role="main">
+    <section class="section-courses">
+      <div class="container">
+        <h2 class="section-title">Our Courses</h2>
+
+        <div class="courses-grid">
+          <article class="course-card">
+            <div class="course-icon"><i class="fas fa-desktop" aria-hidden="true"></i></div>
+            <h3 class="course-title">Computer Basics</h3>
+            <p class="course-desc">Fundamentals of computers, OS, files, and productivity tools for confident everyday use.</p>
+          </article>
+
+          <article class="course-card">
+            <div class="course-icon"><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i></div>
+            <h3 class="course-title">Hardware Repairing</h3>
+            <p class="course-desc">Diagnose and fix desktops and laptops: components, assembly, and troubleshooting.</p>
+          </article>
+
+          <article class="course-card">
+            <div class="course-icon"><i class="fas fa-palette" aria-hidden="true"></i></div>
+            <h3 class="course-title">Graphic Design</h3>
+            <p class="course-desc">Design principles, typography, color, and tools to create compelling visual stories.</p>
+          </article>
+
+          <article class="course-card">
+            <div class="course-icon"><i class="fas fa-film" aria-hidden="true"></i></div>
+            <h3 class="course-title">Video Editing</h3>
+            <p class="course-desc">Edit footage, add effects, and craft narratives with professional editing workflows.</p>
+          </article>
+
+          <article class="course-card">
+            <div class="course-icon"><i class="fas fa-bullhorn" aria-hidden="true"></i></div>
+            <h3 class="course-title">Digital Marketing</h3>
+            <p class="course-desc">SEO, social, email, and analytics — launch campaigns that convert and grow.</p>
+          </article>
+
+          <article class="course-card">
+            <div class="course-icon"><i class="fas fa-network-wired" aria-hidden="true"></i></div>
+            <h3 class="course-title">Networking</h3>
+            <p class="course-desc">Build and manage networks: IP, routing, security, and real-world configurations.</p>
+          </article>
+
+          <article class="course-card">
+            <div class="course-icon"><i class="fas fa-user-secret" aria-hidden="true"></i></div>
+            <h3 class="course-title">Ethical Hacking</h3>
+            <p class="course-desc">Defensive security, penetration testing basics, and responsible vulnerability discovery.</p>
+          </article>
+
+          <article class="course-card">
+            <div class="course-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
+            <h3 class="course-title">Programming</h3>
+            <p class="course-desc">Core programming concepts to build apps, automate workflows, and solve problems.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Yoolbaan Academy. All rights reserved.</p>
+    </div>
   </footer>
 
-  <script src="assets/js/utils.js"></script>
-  <script src="assets/js/auth.js"></script>
+  <script>
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Remove no-js class for progressive enhancement
+    document.documentElement.classList.remove('no-js');
+  </script>
 </body>
 </html>

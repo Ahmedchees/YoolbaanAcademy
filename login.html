@@ -15,7 +15,7 @@
       <h1>Student Portal</h1>
       <p>Enter your credentials to access your exam results</p>
     </div>
-    
+
     <!-- Error message toast -->
     <div id="errorToast" class="error-toast">
       <div class="toast-content">
@@ -26,7 +26,7 @@
         <i class="fas fa-times"></i>
       </button>
     </div>
-    
+
     <form id="loginForm" class="login-form">
       <div class="form-group">
         <label for="rollNo">Roll Number</label>
@@ -35,7 +35,7 @@
           <input type="text" id="rollNo" class="form-control" required autocomplete="username" placeholder="Enter your roll number">
         </div>
       </div>
-      
+
       <div class="form-group">
         <label for="password">Password</label>
         <div class="input-with-icon">
@@ -50,20 +50,24 @@
           <span id="remainingAttempts">3</span> attempts remaining
         </div>
       </div>
-      
+
       <button type="submit" class="btn btn-primary" id="loginBtn">
         <span class="btn-text">Login</span>
         <span class="btn-loader" id="loginLoader">
           <i class="fas fa-spinner fa-spin"></i>
         </span>
       </button>
-      
+
       <div class="form-footer">
         <a href="#" id="forgotPassword">Forgot your password?</a>
       </div>
     </form>
   </div>
 
-  <script src="assets/js/auth.js"></script>
+  <script>
+    // Minimal config: replace with your deployed Apps Script URL
+    window.YOOLBAAN_API = 'https://script.google.com/macros/s/AKfycbxd1w47_PVb4VKI7xtXBVC3DdBdVFu3VYZXpi18DNZHLlKZVD9HvMUSS8A-vzChr7XX8A/exec';
+  </script>
+  <script src="assets/js/stdlogin.js"></script>
 </body>
 </html>

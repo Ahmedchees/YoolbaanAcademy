@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yoolbaan Academy - Exam Results</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/results.css">
+</head>
+<body class="results-body">
+  <header class="results-header">
+    <div class="header-left">
+      <img src="assets/images/logo.png" alt="Yoolbaan Academy Logo" class="logo-sm">
+      <span class="academy-name">Yoolbaan Academy</span>
+    </div>
+    <div class="header-right">
+      <button id="hamburgerBtn" class="hamburger" aria-label="Menu" aria-haspopup="true" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="hamburgerMenu" class="hamburger-menu" aria-label="User menu">
+        <button id="menuInfo" type="button"><i class="fas fa-user-circle"></i> Student Info</button>
+        <button id="menuLogout" type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="results-main">
+    <section class="student-summary">
+      <div class="avatar-container">
+        <img id="profileImage" class="avatar" src="" alt="Profile">
+        <i class="fas fa-user-circle avatar-fallback"></i>
+      </div>
+      <div class="student-meta">
+        <h2 id="studentName">—</h2>
+        <div class="meta-line"><i class="fas fa-id-card"></i> <strong>Roll No:</strong> <span id="studentRoll">—</span></div>
+        <div class="meta-line"><i class="fas fa-info-circle"></i> <strong>Status:</strong> <span id="studentStatus" class="badge">—</span></div>
+      </div>
+    </section>
+
+    <section class="results-section">
+      <div class="section-header">
+        <h3><i class="fas fa-clipboard-list"></i> Exam Results</h3>
+      </div>
+      
+      <div id="noRecords" class="no-records hidden">
+        <i class="fas fa-database no-records-icon"></i>
+        <p>No exam records found</p>
+      </div>
+
+      <div class="table-responsive">
+        <table id="resultsTable" class="results-table">
+          <thead>
+            <tr>
+              <th><i class="fas fa-hashtag"></i> Course ID</th>
+              <th><i class="fas fa-book"></i> Course Name</th>
+              <th><i class="fas fa-star"></i> Marks</th>
+              <th><i class="fas fa-award"></i> Grade</th>
+              <th><i class="fas fa-check-circle"></i> Status</th>
+              <th><i class="fas fa-calendar-alt"></i> Date</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="summaryRow" class="summary-row hidden">
+        <div class="summary-card">
+          <div class="label"><i class="fas fa-calculator"></i> Total Marks</div>
+          <div class="value" id="sumTotal">0</div>
+        </div>
+        <div class="summary-card">
+          <div class="label"><i class="fas fa-chart-line"></i> Average</div>
+          <div class="value" id="avgScore">0</div>
+        </div>
+        <div class="summary-card">
+          <div class="label"><i class="fas fa-trophy"></i> Overall Grade</div>
+          <div class="value badge" id="overallGrade">N/A</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    © <span id="year"></span> Yoolbaan Academy. All rights reserved.
+  </footer>
+
+  <!-- Info modal -->
+  <div id="infoModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="modal-content" role="document">
+      <button class="modal-close" id="closeInfo" aria-label="Close info"><i class="fas fa-times"></i></button>
+      <h3 id="infoTitle"><i class="fas fa-user-graduate"></i> Student Information</h3>
+      <div class="info-grid" id="infoGrid"></div>
+    </div>
+  </div>
+
+  <script>
+    window.YOOLBAAN_API = 'https://script.google.com/macros/s/AKfycbxd1w47_PVb4VKI7xtXBVC3DdBdVFu3VYZXpi18DNZHLlKZVD9HvMUSS8A-vzChr7XX8A/exec';
+  </script>
+  <script src="assets/js/results.js"></script>
+</body>
+</html>
