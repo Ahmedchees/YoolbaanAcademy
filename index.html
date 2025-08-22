@@ -1,116 +1,320 @@
+
+
+
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Yoolbaan Academy</title>
-  <meta name="description" content="Yoolbaan Academy — Learn skills that matter." />
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="assets/css/index.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yoolbaan Academy - Computer Science Education</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/index.css">
 </head>
-<body class="theme-blue">
-  <!-- Header -->
-  <header class="site-header" role="banner">
-    <div class="container header-inner">
-      <div class="brand">
-        <img src="assets/images/logo.png" alt="Yoolbaan Academy logo" class="brand-logo" />
-        <span class="brand-name">Yoolbaan Academy</span>
-      </div>
+<body>
 
-      <nav class="site-nav" aria-label="Primary">
-        <a class="btn btn-primary" href="login.html">
-          <i class="fas fa-user-graduate"></i>
-          <span>Student Login</span>
-        </a>
+  <header class="header">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <img src="assets/images/logo.png" alt="Yoolbaan Academy" class="logo-img">
+        <div class="logo-text">Yoolbaan Academy<span class="logo-subtext">of Computer Science</span></div>
+      </a>
+
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#courses" class="nav-link">Courses</a></li>
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <a href="login.html" class="btn btn-primary">Student Login</a>
       </nav>
+
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </header>
 
-  <!-- Banner -->
-  <section class="hero" role="region" aria-label="Showcase banner">
-    <div class="container hero-inner">
-      <div class="hero-media">
-        <img src="assets/images/banner.jpg" alt="Students learning at Yoolbaan Academy" />
+
+  <div class="mobile-menu">
+    <button class="close-menu-btn"><i class="fas fa-times"></i></button>
+    <ul class="mobile-nav-list">
+       <li><a href="https://yoolbaanacademy.blogspot.com/" class="mobile-nav-link">Blog</a></li>
+      <li><a href="#home" class="mobile-nav-link">Home</a></li>
+      <li><a href="#courses" class="mobile-nav-link">Courses</a></li>
+      <li><a href="#features" class="mobile-nav-link">Features</a></li>
+      <li><a href="#testimonials" class="mobile-nav-link">Testimonials</a></li>
+      <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+      <li><a href="login.html" class="btn btn-primary mobile-login-btn">Student Login</a></li>
+    </ul>
+  </div>
+
+  
+  <section class="hero" id="home">
+    <div class="hero-pattern"></div>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">Transform Your Future With Quality Education</h1>
+        <p class="hero-subtitle">Learn in-demand tech skills and kickstart your career in computer science.</p>
+        <div class="hero-btns">
+          <a href="#courses" class="btn btn-primary">Explore Courses</a>
+          <a href="#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Students Trained</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">20+</span>
+            <span class="stat-label">Expert Instructors</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">95%</span>
+            <span class="stat-label">Job Placement</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="assets/images/banner3.jpg" alt="Students learning at Yoolbaan Academy">
       </div>
     </div>
   </section>
 
-  <!-- Courses -->
-  <main id="content" class="content" role="main">
-    <section class="section-courses">
-      <div class="container">
-        <h2 class="section-title">Our Courses</h2>
 
-        <div class="courses-grid">
-          <article class="course-card">
-            <div class="course-icon"><i class="fas fa-desktop" aria-hidden="true"></i></div>
-            <h3 class="course-title">Computer Basics</h3>
-            <p class="course-desc">Fundamentals of computers, OS, files, and productivity tools for confident everyday use.</p>
-          </article>
-
-          <article class="course-card">
-            <div class="course-icon"><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i></div>
-            <h3 class="course-title">Hardware Repairing</h3>
-            <p class="course-desc">Diagnose and fix desktops and laptops: components, assembly, and troubleshooting.</p>
-          </article>
-
-          <article class="course-card">
-            <div class="course-icon"><i class="fas fa-palette" aria-hidden="true"></i></div>
-            <h3 class="course-title">Graphic Design</h3>
-            <p class="course-desc">Design principles, typography, color, and tools to create compelling visual stories.</p>
-          </article>
-
-          <article class="course-card">
-            <div class="course-icon"><i class="fas fa-film" aria-hidden="true"></i></div>
-            <h3 class="course-title">Video Editing</h3>
-            <p class="course-desc">Edit footage, add effects, and craft narratives with professional editing workflows.</p>
-          </article>
-
-          <article class="course-card">
-            <div class="course-icon"><i class="fas fa-bullhorn" aria-hidden="true"></i></div>
-            <h3 class="course-title">Digital Marketing</h3>
-            <p class="course-desc">SEO, social, email, and analytics — launch campaigns that convert and grow.</p>
-          </article>
-
-          <article class="course-card">
-            <div class="course-icon"><i class="fas fa-network-wired" aria-hidden="true"></i></div>
-            <h3 class="course-title">Networking</h3>
-            <p class="course-desc">Build and manage networks: IP, routing, security, and real-world configurations.</p>
-          </article>
-
-          <article class="course-card">
-            <div class="course-icon"><i class="fas fa-user-secret" aria-hidden="true"></i></div>
-            <h3 class="course-title">Ethical Hacking</h3>
-            <p class="course-desc">Defensive security, penetration testing basics, and responsible vulnerability discovery.</p>
-          </article>
-
-          <article class="course-card">
-            <div class="course-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
-            <h3 class="course-title">Programming</h3>
-            <p class="course-desc">Core programming concepts to build apps, automate workflows, and solve problems.</p>
-          </article>
+  <section class="section features" id="features">
+    <div class="container">
+      <h2 class="section-title">Why Choose Us</h2>
+      <p class="section-subtitle">We provide the best learning experience with our unique features</p>
+      
+      <div class="features-container">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3 class="feature-title">Expert Instructors</h3>
+          <p class="feature-text">Learn from industry professionals with years of practical experience in their fields.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3 class="feature-title">Hands-on Projects</h3>
+          <p class="feature-text">Gain practical experience by working on real-world projects throughout your courses.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3 class="feature-title">Career Support</h3>
+          <p class="feature-text">Get career guidance, resume reviews, and interview preparation to land your dream job.</p>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <!-- Footer -->
-  <footer class="site-footer" role="contentinfo">
+
+  <section class="section courses" id="courses">
     <div class="container">
-      <p>&copy; <span id="year"></span> Yoolbaan Academy. All rights reserved.</p>
+      <h2 class="section-title">Our Popular Courses</h2>
+      <p class="section-subtitle">Browse through our wide range of computer science courses</p>
+      
+      <div class="courses-container">
+        <div class="course-card">
+          <div class="course-image">
+            <img src="assets/images/courses/programming.jpg" alt="Web Development Course">
+          </div>
+          <div class="course-content">
+            <span class="course-category">Programming</span>
+            <h3 class="course-title">Full Stack Web Development</h3>
+            <div class="course-meta">
+              <span><i class="fas fa-user-graduate"></i> Beginner</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="course-card">
+          <div class="course-image">
+            <img src="assets/images/courses/Graphic.png" alt="Graphic Design Course">
+          </div>
+          <div class="course-content">
+            <span class="course-category">Design</span>
+            <h3 class="course-title">Graphic Design Masterclass</h3>
+            <div class="course-meta">
+              <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="course-card">
+          <div class="course-image">
+            <img src="assets/images/courses/cypersecurety.avif" alt="Cybersecurity Course">
+          </div>
+          <div class="course-content">
+            <span class="course-category">Security</span>
+            <h3 class="course-title">Cybersecurity Fundamentals</h3>
+            <div class="course-meta">
+              <span><i class="fas fa-user-graduate"></i> Advanced</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-image">
+            <img src="assets/images/courses/Basics.jpg" alt="Computer Basics Course">
+          </div>
+          <div class="course-content">
+            <span class="course-category">Fundamentals</span>
+            <h3 class="course-title">Computer Basics</h3>
+            <div class="course-meta">
+              <span><i class="fas fa-user-graduate"></i> Beginner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-image">
+            <img src="assets/images/courses/Harware_repairing.jpg" alt="Hardware Repair Course">
+          </div>
+          <div class="course-content">
+            <span class="course-category">Hardware</span>
+            <h3 class="course-title">Hardware Repairing</h3>
+            <div class="course-meta">
+              <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-image">
+            <img src="assets/images/courses/video.png" alt="Video Editing Course">
+          </div>
+          <div class="course-content">
+            <span class="course-category">Multimedia</span>
+            <h3 class="course-title">Video Editing</h3>
+            <div class="course-meta">
+              <span><i class="fas fa-user-graduate"></i> Beginner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
+  <section class="section testimonials" id="testimonials">
+    <div class="container">
+      <h2 class="section-title">What Our Students Say</h2>
+      <p class="section-subtitle">Hear from our successful graduates about their learning experience</p>
+      
+      <div class="testimonials-container">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">Yoolbaan Academy transformed my career. The practical approach to teaching helped me land a job as a web developer just 2 months after completing the course.</p>
+          <div class="testimonial-author">
+            <img src="https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png" alt="Student">
+            <div class="author-info">
+              <h4>Mohamed Abdi</h4>
+              <p>Web Developer at TechSolutions</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">The instructors are incredibly knowledgeable and supportive. I went from knowing nothing about programming to building my own applications in just 6 months.</p>
+          <div class="testimonial-author">
+            <img src="https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png" alt="Student">
+            <div class="author-info">
+              <h4>Aisha Mohamed</h4>
+              <p>Mobile App Developer</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">The career support team helped me prepare for interviews and connect with employers. I got 3 job offers within a month of completing my cybersecurity course.</p>
+          <div class="testimonial-author">
+            <img src="https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png" alt="Student">
+            <div class="author-info">
+              <h4>Yusuf Ahmed</h4>
+              <p>Security Analyst</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="cta" id="contact">
+    <div class="container">
+      <h2 class="cta-title">Ready to Start Your Journey?</h2>
+      <p class="cta-text">Join hundreds of students who have learning our industry-leading computer science programs.</p>
+      <a href="#" class="btn btn-primary" style="background-color: var(--accent);">Enroll Now</a>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <img src="assets/images/logo.png" alt="Yoolbaan Academy" class="footer-logo-img">
+            <div class="footer-logo-text">Yoolbaan Academy</div>
+          </div>
+          <p class="footer-about">Is dedicated to providing quality education in technology fields to empower the next generation of tech professionals.</p>
+          <div class="footer-social">
+            <a href="#" class="https://www.facebook.com/mohamed.cali.98/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="https://api.whatsapp.com/send/?phone=%2B252615291535&text&type=phone_number&app_absent=0" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/@DiiniStudio" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+          
+                <li><a href="https://yoolbaanacademy.blogspot.com/">Blog</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col footer-links">
+          <h3>Courses</h3>
+          <ul>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Mobile Development</a></li>
+            <li><a href="#">Computer Basics</a></li>
+            <li><a href="#">Hardware Repair</a></li>
+            <li><a href="#">Video Editing</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col footer-contact">
+          <h3>Contact Us</h3>
+          <p><i class="fas fa-map-marker-alt"></i>Kismayo, Somalia</p>
+          <p><i class="fas fa-phone-alt"></i> +252 61 529 1535</p>
+          <p><i class="fas fa-envelope"></i> info@yoolbaan.edu</p>
+          <p><i class="fas fa-clock"></i> Satur-Wednesday: 8:00 AM - 9:00 PM</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Yoolbaan Academy of Computer Science. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 
-  <script>
-    // Set current year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
-    // Remove no-js class for progressive enhancement
-    document.documentElement.classList.remove('no-js');
-  </script>
+  <script src="assets/js/index.js"></script>
 </body>
 </html>

@@ -41,7 +41,7 @@ body {
   color: var(--text-dark);
   line-height: 1.6;
 }
-
+.hidden { display: none !important; }
 /* Layout */
 .results-body {
   display: flex;
@@ -83,7 +83,7 @@ body {
 
 .academy-name {
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .header-right {
@@ -392,6 +392,7 @@ body {
   font-size: 1.1rem;
 }
 
+
 .no-records.hidden {
   display: none;
 }
@@ -583,8 +584,8 @@ body {
   
   .results-table th, 
   .results-table td {
-    padding: 0.5rem;
-    font-size: 0.85rem;
+    padding: 0.4rem;
+    font-size: 0.65rem;
   }
   
   .results-table th i {
@@ -594,7 +595,7 @@ body {
 
 @media (max-width: 480px) {
   .results-main {
-    padding: 1rem;
+    padding: 0.8rem;
   }
   
   .student-summary {

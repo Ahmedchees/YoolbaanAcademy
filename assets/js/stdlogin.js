@@ -1,4 +1,3 @@
-// stdlogin.js
 (function(){
   const $ = (sel) => document.querySelector(sel);
   const loginForm = $('#loginForm');
@@ -17,7 +16,11 @@
   function showError(msg){
     errorMessage.textContent = msg;
     errorToast.classList.add('show');
+     setTimeout(() => {
+        errorToast.classList.remove('show');
+    }, 5000);
   }
+
   window.hideErrorToast = function(){
     errorToast.classList.remove('show');
   }
@@ -36,7 +39,6 @@
   }
 
   async function getClientFingerprint(){
-    // IP from ipify; device from user agent
     try {
       const r = await fetch('https://api.ipify.org?format=json');
       const j = await r.json();
@@ -59,7 +61,12 @@
   function updateRemaining(n){
     remaining = n;
     remainingSpan.textContent = n;
-    attemptsCounter.style.color = n === 0 ? '#ef4444' : '#fca5a5';
+    attemptsCounter.classList.add('show');
+    if (n === 0) {
+      attemptsCounter.classList.add('warning');
+    } else {
+      attemptsCounter.classList.remove('warning');
+    }
   }
 
   loginForm.addEventListener('submit', async (e) => {
@@ -86,7 +93,7 @@
       form.set('ip', ip);
       form.set('device', device);
 
-      const res = await fetch(window.YOOLBAAN_API, {
+      const res = await fetch(window.image, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
         body: form.toString()
@@ -107,18 +114,15 @@
         return;
       }
 
-      // Success
+ 
       sessionStorage.setItem('yb_token', data.token);
       sessionStorage.setItem('yb_roll', data.rollNo);
       sessionStorage.setItem('yb_avatar', data.profileImage || '');
-      window.location.href = 'results.html';
+      window.location.href = 'profile.html';
     } catch (err) {
-      showError('Network or server error. Please try again.');
+      showError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
   });
-
-  // Init
-  updateRemaining(3);
 })();

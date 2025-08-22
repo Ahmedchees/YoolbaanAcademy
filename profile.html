@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Yoolbaan Academy - Exam Results</title>
+  <title>Yoolbaan Academy - Student profile</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="assets/css/results.css">
+  <link rel="stylesheet" href="assets/css/profile.css">
 </head>
 <body class="results-body">
   <header class="results-header">
     <div class="header-left">
-      <img src="assets/images/logo.png" alt="Yoolbaan Academy Logo" class="logo-sm">
+      <a href="index.html"><img src="assets/images/logoA2.png" alt="Yoolbaan Academy Logo" class="logo-sm"></a>
       <span class="academy-name">Yoolbaan Academy</span>
     </div>
     <div class="header-right">
@@ -28,7 +28,7 @@
   <main class="results-main">
     <section class="student-summary">
       <div class="avatar-container">
-        <img id="profileImage" class="avatar" src="" alt="Profile">
+        <img id="profileImage" class="avatar" src="https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png" alt="Profile">
         <i class="fas fa-user-circle avatar-fallback"></i>
       </div>
       <div class="student-meta">
@@ -40,20 +40,20 @@
 
     <section class="results-section">
       <div class="section-header">
-        <h3><i class="fas fa-clipboard-list"></i> Exam Results</h3>
+        <h3><i class="fas fa-clipboard-list"></i> Academic record</h3>
       </div>
       
       <div id="noRecords" class="no-records hidden">
         <i class="fas fa-database no-records-icon"></i>
-        <p>No exam records found</p>
+        <p>No academic records found</p>
       </div>
 
       <div class="table-responsive">
         <table id="resultsTable" class="results-table">
           <thead>
             <tr>
-              <th><i class="fas fa-hashtag"></i> Course ID</th>
-              <th><i class="fas fa-book"></i> Course Name</th>
+              <th><i class="fas fa-hashtag"></i> CID</th>
+              <th><i class="fas fa-book"></i> CName</th>
               <th><i class="fas fa-star"></i> Marks</th>
               <th><i class="fas fa-award"></i> Grade</th>
               <th><i class="fas fa-check-circle"></i> Status</th>
@@ -84,19 +84,17 @@
   <footer class="site-footer">
     © <span id="year"></span> Yoolbaan Academy. All rights reserved.
   </footer>
-
-  <!-- Info modal -->
   <div id="infoModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
     <div class="modal-content" role="document">
       <button class="modal-close" id="closeInfo" aria-label="Close info"><i class="fas fa-times"></i></button>
-      <h3 id="infoTitle"><i class="fas fa-user-graduate"></i> Student Information</h3>
+      <h3 id="infoTitle"><i class="fas fa-user-graduate"></i> Student Info</h3>
       <div class="info-grid" id="infoGrid"></div>
     </div>
   </div>
 
   <script>
-    window.YOOLBAAN_API = 'https://script.google.com/macros/s/AKfycbxd1w47_PVb4VKI7xtXBVC3DdBdVFu3VYZXpi18DNZHLlKZVD9HvMUSS8A-vzChr7XX8A/exec';
+    window.image = 'https://script.google.com/macros/s/AKfycbxDQvquO1k7YuAdTbOmQAgS-HRynIko6sVX-zHN9daETy1BmoivNUTi2fVRicqA0tjQgg/exec';
   </script>
-  <script src="assets/js/results.js"></script>
+  <script src="assets/js/profile.js"></script>
 </body>
 </html>

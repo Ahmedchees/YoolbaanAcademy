@@ -1,21 +1,17 @@
-// assets/js/results.js
+
 (function () {
   'use strict';
 
   const $ = (sel) => document.querySelector(sel);
   const LOGIN_PAGE = 'login.html';
 
-  // Session values
   const token = sessionStorage.getItem('yb_token');
   const rollFromSession = (sessionStorage.getItem('yb_roll') || '').trim();
 
-  // Guard: must have token and roll to proceed
   if (!token || !rollFromSession) {
     window.location.href = LOGIN_PAGE;
     return;
   }
-
-  // Elements
   const profileImage = $('#profileImage');
   const studentName = $('#studentName');
   const studentRoll = $('#studentRoll');
@@ -41,10 +37,8 @@
   const closeInfo = $('#closeInfo');
   const infoGrid = $('#infoGrid');
 
-  // Footer year
   if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-  // Hamburger menu toggle
   function toggleMenu(show) {
     if (!hamburgerMenu || !hamburgerBtn) return;
     const willShow = typeof show === 'boolean' ? show : !hamburgerMenu.classList.contains('show');
@@ -63,7 +57,6 @@
     });
   }
 
-  // Utilities
   function formatDateOnly(v) {
     if (!v) return '';
     if (typeof v === 'string') {
@@ -83,7 +76,6 @@
     el.setAttribute('aria-busy', busy ? 'true' : 'false');
   }
 
-  // Skeletons
   function showTableSkeleton(rows = 6) {
     if (!tableBody || !table) return;
     setBusy(table, true);
@@ -149,7 +141,6 @@
     el.textContent = status || '—';
   }
 
-  // Modal helpers
   function ensureModalHidden() {
     if (infoModal && !infoModal.classList.contains('hidden')) {
       infoModal.classList.add('hidden');
@@ -178,7 +169,6 @@
     });
   }
 
-  // API
   async function postForm(action, extra = {}) {
     const form = new URLSearchParams();
     form.set('action', action);
@@ -189,7 +179,7 @@
     const to = setTimeout(() => ctrl.abort(), 15000);
 
     try {
-      const res = await fetch(window.YOOLBAAN_API, {
+      const res = await fetch(window.image, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
         body: form.toString(),
@@ -197,91 +187,139 @@
       });
       clearTimeout(to);
       let json = null;
-      try { json = await res.json(); } catch {}
+      try { json = await res.json(); } catch { }
       return { status: res.status, ok: res.ok, json };
     } catch {
       clearTimeout(to);
       return { status: 0, ok: false, json: null };
     }
   }
+function renderProfile(p = {}) {
+  const sessionAvatar = sessionStorage.getItem('yb_avatar') || '';
+  profileImage.src = p.ProfileImage || sessionAvatar || 'https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
+  studentName.textContent = p.Name || '—';
+  studentRoll.textContent = p.RollNO || p.RollNo || rollFromSession || '—';
+  setStatusBadge(studentStatus, p.StudentStatus || '—');
+}
+function filterByRoll(results, roll) {
+  const list = Array.isArray(results) ? results : [];
+  if (!roll) return list;
+  const target = String(roll).trim().toLowerCase();
+  return list.filter((r) => {
+    const rr = r.RollNo ?? r.RollNO ?? r.roll ?? r.StudentRoll ?? r.StudentID ?? r.StudentNo ?? '';
+    return String(rr).trim().toLowerCase() === target;
+  });
+}
 
-  // Rendering
-  function renderProfile(p = {}) {
-    const sessionAvatar = sessionStorage.getItem('yb_avatar') || '';
-    profileImage.src = p.ProfileImage || sessionAvatar || 'https://www.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
-    studentName.textContent = p.Name || '—';
-    studentRoll.textContent = p.RollNO || p.RollNo || rollFromSession || '—';
-    setStatusBadge(studentStatus, p.StudentStatus || '—');
+function getThead() {
+  return table ? table.querySelector('thead') : null;
+}
+function hideHeaderAndSummary() {
+  const thead = getThead();
+  if (thead) thead.classList.add('hidden');
+  if (summaryRow) summaryRow.classList.add('hidden');
+}
+function showHeaderAndSummary() {
+  const thead = getThead();
+  if (thead) thead.classList.remove('hidden');
+  if (summaryRow) summaryRow.classList.remove('hidden');
+}
+function clearBody() {
+  if (tableBody) tableBody.innerHTML = '';
+}
+function showErrorState(message) {
+  clearTableSkeleton?.();
+  clearSummarySkeleton?.();
+  clearBody();
+  hideHeaderAndSummary();
+  if (noRecords) {
+    noRecords.textContent = message || 'There was an error. Please contact support.';
+    noRecords.classList.remove('hidden');
+  }
+}
+
+function showEmptyState(message) {
+  clearTableSkeleton?.();
+  clearSummarySkeleton?.();
+  clearBody();
+  hideHeaderAndSummary();
+  if (noRecords) {
+    noRecords.textContent = message || 'There is no record, please contact support.';
+    noRecords.classList.remove('hidden');
+  }
+}
+
+function showDataState() {
+  hideNoRecords?.();
+  clearTableSkeleton?.();
+  showHeaderAndSummary();
+}
+
+function renderResultsPayload(payload) {
+  const profile = payload?.profile || {};
+  renderProfile(profile);
+
+  const isError = payload?.ok === false || payload?.status === 'error' || !!payload?.error;
+
+  const rawResults = payload?.results || payload?.courses || [];
+  const results = filterByRoll(rawResults, rollFromSession);
+
+  if (isError) {
+    const msg = typeof payload?.message === 'string' && payload.message.trim()
+      ? payload.message
+      : 'There was an error. Please contact support.';
+    showErrorState(msg);
+    return;
   }
 
-  function filterByRoll(results, roll) {
-    const list = Array.isArray(results) ? results : [];
-    if (!roll) return list;
-    const target = String(roll).trim().toLowerCase();
-    return list.filter((r) => {
-      const rr = r.RollNo ?? r.RollNO ?? r.roll ?? r.StudentRoll ?? r.StudentID ?? r.StudentNo ?? '';
-      return String(rr).trim().toLowerCase() === target;
-    });
+  if (!results.length) {
+    showEmptyState('There is no record, please contact support.');
+    return;
   }
 
-  function renderResultsPayload(payload) {
-    const profile = payload?.profile || {};
-    renderProfile(profile);
+  showDataState();
 
-    const rawResults = payload?.results || payload?.courses || [];
-    const results = filterByRoll(rawResults, rollFromSession);
-
-    if (!results.length) {
-      clearTableSkeleton();
-      clearSummarySkeleton();
-      setNoRecords('There is no record, please contact support.');
-      return;
+  const frag = document.createDocumentFragment();
+  for (const r of results) {
+    const tr = document.createElement('tr');
+    const cells = [
+      r.CourseID || r.CourseId || '',
+      r.CourseName || r.Course || '',
+      r.Marks ?? r.Score ?? '',
+      r.Grade ?? '', 
+      r.Status || '',
+      formatDateOnly(r.Date || r.ExamDate || r.UpdatedAt || '')
+    ];
+    for (const c of cells) {
+      const td = document.createElement('td');
+      td.textContent = c === null || c === undefined ? '' : c;
+      tr.appendChild(td);
     }
+    frag.appendChild(tr);
+  }
+  clearBody();
+  tableBody.appendChild(frag);
 
-    hideNoRecords();
-    clearTableSkeleton();
+  const backendSummary = payload?.summary && typeof payload.summary === 'object' ? payload.summary : null;
 
-    const frag = document.createDocumentFragment();
-    for (const r of results) {
-      const tr = document.createElement('tr');
-      const cells = [
-        r.CourseID || r.CourseId || '',
-        r.CourseName || r.Course || '',
-        r.Marks ?? r.Score ?? '',
-        r.Grade || '',
-        r.Status || '',
-        formatDateOnly(r.Date || r.ExamDate || r.UpdatedAt || '')
-      ];
-      for (const c of cells) {
-        const td = document.createElement('td');
-        td.textContent = c === null || c === undefined ? '' : c;
-        tr.appendChild(td);
-      }
-      frag.appendChild(tr);
-    }
-    tableBody.appendChild(frag);
+  let total = backendSummary?.total;
+  let average = backendSummary?.average;
+  const gradeAsIs = backendSummary?.overallGrade;
 
-    // Summary (safe: compute only total/avg if backend didn't provide; show grade if provided)
-    const backendSummary = payload?.summary && typeof payload.summary === 'object' ? payload.summary : null;
-    let total = backendSummary?.total;
-    let average = backendSummary?.average;
-    const grade = backendSummary?.overallGrade;
-
-    if (total == null || average == null) {
-      const nums = results.map((x) => Number(x.Marks ?? x.Score) || 0);
-      const t = nums.reduce((a, b) => a + b, 0);
-      const a = nums.length ? t / nums.length : 0;
-      total = total == null ? Math.round(t * 100) / 100 : Number(total) || 0;
-      average = average == null ? Math.round(a * 100) / 100 : Number(average) || 0;
-    }
-
-    sumTotal.textContent = (total ?? 0).toString();
-    avgScore.textContent = (average ?? 0).toString();
-    overallGrade.textContent = grade ?? 'N/A';
-    summaryRow.classList.remove('hidden');
+  if (total == null || average == null) {
+    const nums = results.map((x) => Number(x.Marks ?? x.Score) || 0);
+    const t = nums.reduce((a, b) => a + b, 0);
+    const a = nums.length ? t / nums.length : 0;
+    if (total == null) total = Math.round(t * 100) / 100;
+    if (average == null) average = Math.round(a * 100) / 100;
   }
 
-  // Menu actions
+  sumTotal.textContent = (total ?? 0).toString();
+  avgScore.textContent = (average ?? 0).toString();
+  overallGrade.textContent = gradeAsIs ?? 'N/A';
+  summaryRow.classList.remove('hidden');
+}
+
   if (menuInfo) {
     menuInfo.addEventListener('click', async () => {
       toggleMenu(false);
@@ -318,7 +356,7 @@
 
   if (menuLogout) {
     menuLogout.addEventListener('click', async () => {
-      try { await postForm('logout'); } catch {}
+      try { await postForm('logout'); } catch { }
       sessionStorage.removeItem('yb_token');
       sessionStorage.removeItem('yb_roll');
       sessionStorage.removeItem('yb_avatar');
@@ -326,15 +364,15 @@
     });
   }
 
-  // Init
-  async function init() {
-    ensureModalHidden();           // Make sure modal is hidden on startup
-    hideNoRecords();               // Hide empty state initially
-    showSummaryLoadingState();     // Placeholder in student summary
-    showSummarySkeleton();         // Placeholder in summary cards
-    showTableSkeleton(6);          // Placeholder rows
 
-    // Prefetch profile if available
+  async function init() {
+    ensureModalHidden();          
+    hideNoRecords();            
+    showSummaryLoadingState();    
+    showSummarySkeleton();         
+    showTableSkeleton(6);        
+
+ 
     try {
       const { status, json } = await postForm('results', { roll: rollFromSession });
       if (status === 401) {
@@ -349,7 +387,7 @@
         return;
       }
 
-      // Fallback to a "courses" action (some backends separate sheets)
+ 
       const fallback = await postForm('courses', { roll: rollFromSession });
       if (fallback.status === 401) {
         sessionStorage.removeItem('yb_token');
