@@ -1,5 +1,4 @@
 :root {
-
   --primary: #2563eb;
   --primary-dark: #1e40af;
   --secondary: #10b981;
@@ -187,6 +186,8 @@ img {
   font-size: 0.7rem;
   font-weight: 400;
   color: var(--dark-gray);
+  margin-top:-5px;
+  margin-left:2px;
 }
 
 .nav {
@@ -375,7 +376,7 @@ img {
   min-width: 100%;
   min-height:350px;
   background-size:cover;
-  color:white;
+
 }
 
 .hero-pattern {
@@ -714,7 +715,7 @@ img {
     justify-content: center;
   }
 
-  .hero-image .image {
+  .hero-image{
     display: none;
   }
 }
@@ -790,7 +791,7 @@ img {
   }
 
   .logo-text{
-    font-size:1rem;
+    font-size:1.2rem;
   }
 .logo-subtext{
   margin-top:-2px;
@@ -811,7 +812,7 @@ img {
   position:relative;
   display:block;
 background-image:
-    linear-gradient(to bottom, rgba(148, 36, 240, 0.5), rgba(37, 37, 37, 0.73)),
+    linear-gradient(to bottom, rgba(5, 184, 184, 0.493), rgba(49, 51, 51, 0.842)),
     url('/assets/images/banner6.jpg');
   min-height: 400px;
     background-size: cover;

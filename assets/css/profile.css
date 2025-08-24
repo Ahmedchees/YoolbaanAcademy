@@ -1,4 +1,4 @@
-/* Base Styles */
+
 :root {
   --primary-blue: #3498db;
   --dark-blue: #2980b9;
@@ -42,7 +42,7 @@ body {
   line-height: 1.6;
 }
 .hidden { display: none !important; }
-/* Layout */
+
 .results-body {
   display: flex;
   flex-direction: column;
@@ -57,11 +57,11 @@ body {
   width: 100%;
 }
 
-/* Header */
+
 .results-header {
   background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
   color: var(--white);
-  padding: 1rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,12 +73,23 @@ body {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.7rem;
+ padding:0;
+ margin:0;
 }
-
+.sub-academy-name{
+  display:block;
+  font-size:0.8rem;
+  font-weight:400;
+  color:var(--light-blue);
+  margin-top:-5px;
+}
 .logo-sm {
   height: 36px;
   width: auto;
+  border-radius: 5px 2px 5px 2px;
+  margin-top:10px;
 }
 
 .academy-name {
@@ -90,7 +101,7 @@ body {
   position: relative;
 }
 
-/* Hamburger Menu */
+
 .hamburger {
   background: none;
   border: none;
@@ -171,7 +182,7 @@ body {
   text-align: center;
 }
 
-/* Student Summary */
+
 .student-summary {
   display: flex;
   align-items: center;
@@ -238,7 +249,7 @@ body {
   text-align: center;
 }
 
-/* Results Section */
+
 .results-section {
   background-color: var(--white);
   border-radius: var(--radius-md);
@@ -265,7 +276,7 @@ body {
   color: var(--primary-blue);
 }
 
-/* Table */
+
 .table-responsive {
   overflow-x: auto;
   margin-bottom: 1.5rem;
@@ -305,7 +316,7 @@ body {
   background-color: var(--light-gray);
 }
 
-/* Badges */
+
 .badge {
   display: inline-block;
   padding: 0.25rem 0.5rem;
@@ -325,7 +336,7 @@ body {
   color: #92400e;
 }
 
-/* Summary Row */
+
 .summary-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -368,7 +379,7 @@ body {
   color: var(--text-dark);
 }
 
-/* No Records */
+
 .no-records {
   display: flex;
   flex-direction: column;
@@ -397,7 +408,7 @@ body {
   display: none;
 }
 
-/* Modal */
+
 .modal {
   position: fixed;
   top: 0;
@@ -512,7 +523,7 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* Skeleton Loading */
+
 .skeleton-line {
   display: inline-block;
   height: 1rem;
@@ -561,7 +572,7 @@ body {
   z-index: 10;
 }
 
-/* Footer */
+
 .site-footer {
   text-align: center;
   padding: 1rem;
@@ -571,7 +582,7 @@ body {
   margin-top: 2rem;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .student-summary {
     flex-direction: column;
@@ -584,22 +595,42 @@ body {
   
   .results-table th, 
   .results-table td {
-    padding: 0.4rem;
+    padding:0.3rem;
     font-size: 0.65rem;
   }
   
   .results-table th i {
     display: none;
   }
+.results-section{
+  padding:0.8rem;
+}
+.summary-card div:nth-child(2){
+  font-size:1rem;
+}
+.summary-card div:nth-child(1){
+  font-size:0.9rem;
+}
+.section-header h3, i{
+  font-size:1rem;
+}
+.academy-name{
+  font-size:0.9rem;
+  font-weight:500;
+}
+.academy-name > .sub-academy-name{
+  font-size:0.7rem;
+}
 }
 
 @media (max-width: 480px) {
   .results-main {
-    padding: 0.8rem;
+    padding: 0.5rem;
   }
   
   .student-summary {
     padding: 1rem;
+    
   }
   
   .summary-row {

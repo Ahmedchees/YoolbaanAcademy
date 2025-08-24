@@ -103,7 +103,7 @@
       if (!data.ok) {
         if (data.code === 'LOCKED') {
           updateRemaining(0);
-          showError('Too many failed attempts. Try again in 1 hour.');
+          showError('Too many failed attempts. Try again leter.');
         } else if (data.code === 'INACTIVE') {
           showError('Your account is not active');
         } else {
