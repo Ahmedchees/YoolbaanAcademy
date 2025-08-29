@@ -702,7 +702,13 @@ img {
     gap: var(--space-lg);
     text-align: center;
   }
-
+  .logo{
+    gap:4px;
+  }
+.logo-text{
+  font-size:1rem;
+  font-weight: 600;
+}
   .hero-content {
     max-width: 100%;
   }
@@ -715,11 +721,40 @@ img {
     justify-content: center;
   }
 
+
   .hero-image{
+  position: absolute;
+  top:-90px;
+  left:0;
+  right:0;
+ bottom: 0;
+  z-index:-1;
+  margin:auto;
+  padding:0;
+  width: 100%;
+  border-radius:0;
+  height:100vh;
+  box-shadow: none;
+ }
+ .hero-image .image{
+  position:relative;
+background-image:
+    linear-gradient(to bottom, rgba(5, 184, 184, 0.493), rgba(3, 3, 3, 0.9)),
+    url('/assets/images/banner3.jpg');
+height:inherit;
+    background-size: cover;
+       background-position: center;
+ }
+
+}
+@media (max-width:820px), (max-width:853px) {
+    .nav {
     display: none;
   }
+   .mobile-menu-btn {
+    display: block;
+  }
 }
-
 @media (max-width: 768px) {
   .section {
     padding: var(--space-lg) 0;
@@ -767,66 +802,31 @@ img {
     margin-bottom: 5px;
 
   }
+ 
+ .hero-image .image{
+background-image:
+    linear-gradient(to bottom, rgba(5, 184, 184, 0.493), rgba(0, 0, 0, 0.842)),
+    url('/assets/images/banner6.jpg');
+ }
+ .hero-stats{
+ background:rgba(22, 125, 139, 0.459);
+padding:1rem 0;
+border:1px solid  rgba(6, 211, 238, 0.438);
+border-radius:12px;
+}
 }
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
-
+  
   .hero-stats {
     flex-direction: column;
     gap: var(--space-md);
-    align-items: center;
   }
-
-  .stat-item {
-    align-items: center;
+  .hero-image{
+    top:-305px;
   }
-.nav{
-  display: none;
-}
-  .section-title {
-    font-size: 1.8rem;
-  }
-
-  .logo-text{
-    font-size:1.2rem;
-  }
-.logo-subtext{
-  margin-top:-2px;
-}
- .hero-image{
-  position: absolute;
-  top:-40px;
-  left:0;
-  right:0;
-  z-index:-1;
-  margin:auto;
-  padding:0;
-  width: 100%;
-  border-radius:0;
-  min-height: 400px;
- }
- .hero-image .image{
-  position:relative;
-  display:block;
-background-image:
-    linear-gradient(to bottom, rgba(5, 184, 184, 0.493), rgba(49, 51, 51, 0.842)),
-    url('/assets/images/banner6.jpg');
-  min-height: 400px;
-    background-size: cover;
-    z-index:-1;
- }
-
-  .hero-container {
-    padding-top: var(--space-xl);
-    padding-bottom: var(--space-xl);
-  }
-
  
-  .hero-content {
-    order: 2;
-  }
-
 }
